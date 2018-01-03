@@ -1,0 +1,16 @@
+body{
+	background-image: url("../images/wood_pattern.png");
+}
+
+img{
+	margin: 20px;
+	float: left;
+}
+h3{
+	/*text-decoration: underline;*/
+}
+h4#wordID{
+	text-align: center;
+	float:left;
+	margin: 10px;
+}

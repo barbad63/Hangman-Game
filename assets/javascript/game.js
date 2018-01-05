@@ -20,13 +20,12 @@ var game = {
   	this.remGUESS = 12;
   	this.usedChar = false; 
   	// document.getElementById("wordID").innerHTML = "";
+  	var s ="";
   	for (var i = 0; i < this.secretARRAY.length; i++) {
-  		var s = "A";
-    	var E = document.createElement("h4");
-    	var T = document.createTextNode(s);
-    	E.appendChild(T);
-    	document.getElementById("wordID").appendChild(E);
-    }
+  		s += "_  ";
+  	}
+    document.getElementById("wordID").innerHTML = s;
+    
   	var len = this.usedLTRS.length;
   	for (var i = 0; i < len; i++) {
   		this.usedLTRS.pop();
@@ -92,6 +91,13 @@ var game = {
   	else{
    		return false;
   	}
+  },
+  displayMatches: function(){
+  	var el = "";
+  	for (var i = 0; i < this.usrguessARRAY.length; i++) {
+  		el += this.usrguessARRAY[i] + "  ";
+  	}
+  	document.getElementById("wordID").innerHTML = el;
   }
 }
 
@@ -106,6 +112,7 @@ window.onload = function(){
 		game.usedCHK();
 		console.log("Is usedChar set: " + game.usedChar);
 		if (game.matchCHK() === true){
+			game.displayMatches();
 			if (game.winCHK() === true){
 				winCnt++;
 				document.getElementById("winID").innerHTML = "WINS: " + winCnt;

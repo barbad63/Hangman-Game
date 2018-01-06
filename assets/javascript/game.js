@@ -25,11 +25,23 @@ var game = {
   		s += "_  ";
   	}
     document.getElementById("wordID").innerHTML = s;
-    
-  	var len = this.usedLTRS.length;
+    console.log("usedLTRS Array : " + this.usedLTRS + this.usedLTRS.length);
+  	
+    var item = document.getElementById("guessedID");
+    if (item.hasChildNodes() != null) {
+      while (item.hasChildNodes()) {
+          item.removeChild(item.lastChild);
+      }
+    }
+
+    document.getElementById("guessedID").innerHTML = "CHARACTERS ALREADY GUESSED:  ";
+
+    var len = this.usedLTRS.length;
   	for (var i = 0; i < len; i++) {
   		this.usedLTRS.pop();
   	}
+    console.log("usedLTRS Array : " + this.usedLTRS);
+ 
   	document.getElementById("statusID").innerHTML = "PRESS ANY KEY TO GET STARTED!";
   	document.getElementById("guessCntID").innerHTML = "NUMBER OF GUESSES REMAINING: " + this.remGUESS;
   },
@@ -69,16 +81,20 @@ var game = {
   			document.getElementById("statusID").innerHTML = "YOU ALREADY SELECTED THIS KEY!";
   			this.usedChar = true;
   			// console.log("usedChar : " + this.usedChar);
-  			console.log("usedLTRS Array : " + this.usedLTRS);
-  			return (true);
+  			break;
   		}
   	}
   	// Add current letter to the used letter (character) array
-  	this.usedLTRS.push(this.currentLTR);
-  	// console.log("usedChar : " + this.usedChar);
+
   	// console.log("usedLTRS Array : " + this.usedLTRS);
-  	document.getElementById("statusID").innerHTML = "MAKE ANOTHER GUESS!";
-  	return(false);
+  	if (this.usedChar === true){
+  		document.getElementById("statusID").innerHTML = "MAKE ANOTHER GUESS!";
+	} else {
+	  	this.usedLTRS.push(this.currentLTR);
+	  	TxtNode = document.createTextNode(this.currentLTR + "  ");
+  		document.getElementById("guessedID").appendChild(TxtNode);
+	}
+  	return(this.usedChar);
   },
   winCHK: function(){
   	if (this.usrguessARRAY.length === this.secretARRAY.length){
